@@ -3,17 +3,20 @@
 # options to be displayed
 option0="screen"
 option1="area"
-option2="window"
+option2="ocr area"
+option3="window"
 
 # options to be displyed
-options="$option0\n$option1\n$option2"
+options="$option0\n$option1\n$option2\n$option3"
 
-selected="$(echo -e "$options" | rofi -lines 3 -dmenu -p "scrot")"
+selected="$(echo -e "$options" | rofi -lines 4 -width 10 -dmenu -p "scrot")"
 case $selected in
     $option0)
-        cd ~/Pictures/scrots/ && sleep 1 && scrot;;
+        cd ~/Images/Screenshots/ && sleep 1 && scrot;;
     $option1)
-        cd ~/Pictures/scrots/ && scrot -s;;
+        cd ~/Images/Screenshots/ && scrot -s;;
     $option2)
-        cd ~/Pictures/scrots/ && sleep 1 && scrot -u;;
+        scrot -s -e 'python ~/dev/scripts/ocr2clipboard.py $f';;
+    $option3)
+        cd ~/Images/Screenshots/ && sleep 1 && scrot -u;;
 esac
